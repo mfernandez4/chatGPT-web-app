@@ -20,7 +20,7 @@ function loader(element){
     element.textContent += '.';
 
     // if the dot is the 3rd one, reset the text
-    if(element.textContent.length === '....'){
+    if(element.textContent.length === 4){
       element.textContent = '';
     }
   }, 300);
@@ -38,7 +38,7 @@ function typeText(text, element){
   const interval = setInterval(() => {
     
     if(i < text.length){
-      element.innerHTML += text.chatAt(i);
+      element.innerHTML += text.charAt(i);
       i++;
     }
     // if the text is finished, clear the interval
@@ -72,7 +72,7 @@ function chatStripe(isAi, value, uniqueId) {
     `
       <div class="wrapper ${isAi && 'ai'}">
         <div class="chat">
-          <div className="profile">
+          <div class="profile">
             <img 
               src="${isAi ? bot : user}" 
               alt="${isAi ? 'bot' : 'user'}" 
@@ -94,7 +94,7 @@ const handleSubmit = async (e) => {
   const message = new FormData(form);
 
   // generate the user's chatstripe
-  chatContainer.innerHTML += chatStripe(false, message.get('prompt'), generateUniqueId());
+  chatContainer.innerHTML += chatStripe(false, message.get('prompt'));
 
   // clear the form
   form.reset();
@@ -117,23 +117,46 @@ const handleSubmit = async (e) => {
   // display the loader
   loader(messageElement);
 
-  // // send the message to the server
-  // const response = await fetch('/chat', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({message})
-  // });
+  // send the message to the server -> chatGPT response
+  const response = await fetch('http://localhost:5000', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      prompt: message.get('prompt')
+      // prompt: 'hello'
+    })
+  });
 
-  // // get the response from the server
-  // const {chat} = await response.json();
+  // remove the loader
+  clearInterval(loadInverval);
 
-  // // remove the loader
-  // clearInterval(loadInverval);
+  // clear the message element
+  messageElement.innerHTML = ' ';
+  
+  if (response.ok) {
+    // get the response from the server
+    const data = await response.json();
 
-  // // display the response
-  // typeText(chat, messageElement);
+    // parse the response
+    const bot = data.bot.trim();
+    
+    // display the response
+    typeText(bot, messageElement);
+    
+  } else {
+    // get the error from the server
+    const err = await response.text();
+
+    // display a generic error message in the chat container
+    messageElement.innerHTML = `Something went wrong. Please try again later.
+    ${await err}
+    `;
+
+    // display the error
+    alert(err);
+  }
 }
 
 // add an event listener to the form
