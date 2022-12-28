@@ -45,7 +45,7 @@ function typeText(text, element){
     else{
       clearInterval(interval);
     }
-  }, 50);
+  }, 20);
 }
 
 
