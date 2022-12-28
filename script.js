@@ -118,7 +118,7 @@ const handleSubmit = async (e) => {
   loader(messageElement);
 
   // send the message to the server -> chatGPT response
-  const response = await fetch('http://localhost:5000', {
+  const response = await fetch('https://gpt-server.onrender.com/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
