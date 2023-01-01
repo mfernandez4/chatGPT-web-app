@@ -5,14 +5,27 @@ import user from './assets/user.svg'
 // get the form and chat container from the DOM
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
+const sidebar = document.querySelector('.sidebar');
+const navItems = document.querySelector('nav .nav-items');
+const toggle = document.querySelector('.sidebar .toggle');
 
-let loadInverval;
+
+// add an event listener to the toggle button
+toggle.addEventListener('click', () => {
+  // toggle the sidebar
+  if ( sidebar.className === "sidebar" )
+    sidebar.classList.add("open");
+  else
+    sidebar.classList.remove("open");
+});
+
 
 
 /**
  * This function is called when the form is submitted. Displays a animated loader and sends the message to the server.
  * @param {*} element - the element to add the loader to animate the loading 
- */
+*/
+let loadInverval;
 function loader(element){
   element.textContent = '';
 

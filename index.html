@@ -5,14 +5,22 @@
     <link rel="icon" type="image/svg+xml" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple ChatGPT - Web App</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css" />
-    <!-- <link rel="stylesheet" href="normal.css"> -->
+    <link rel="stylesheet" href="normal.css">
+
   </head>
 
   <body>
     <div id="app">
       <!-- Side Menu -->
       <aside class="sidebar">
+        <!-- Toggle -->
+        <div class="toggle">
+          <i class="bx bx-chevron-right" ></i>
+        </div>
+
+        <!-- Logo -->
         <div class="logo">
           <img src="assets/bot.svg" alt="..." />
           <h3>ChatGPT</h3>
@@ -22,7 +30,8 @@
           <div class="side-bar-menu">
             <div class="side-bar-button">
               <span>+</span>
-              New Chat
+              <span id="new-chat">New Chat</span>
+              
             </div>
           </div>
 
