@@ -8,7 +8,9 @@
 }
 
 body {
+  height: 100vh;
   background: #343541;
+  font-family: 'Roboto', sans-serif;
 }
 
 #app {
@@ -20,6 +22,47 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 360px;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: #40414fa4;
+  box-shadow: 0 8px 32px rgb(2,4,24);
+  border-right: 2px solid rgba(255,255,255, .09);
+}
+
+.sidebar .logo {
+  width: 100%;
+  /* width: 96px; */
+  height: 240px;
+  padding: 15px;
+  display: grid;
+  background: #40414F;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar .logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sidebar .logo h3 {
+  font-size: 36px;
+  font-weight: 500;
+  color: #dcdcdc;
+  margin-top: 10px;
+  font-variant: small-caps;
+  pointer-events: none;
 }
 
 #chat_container {
