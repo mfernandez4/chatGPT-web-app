@@ -5,30 +5,56 @@
     <link rel="icon" type="image/svg+xml" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple ChatGPT - Web App</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
+    <!-- <link rel="stylesheet" href="normal.css"> -->
   </head>
 
   <body>
     <div id="app">
-
       <!-- Side Menu -->
-      <div class="sidebar">
-        
+      <aside class="sidebar">
         <div class="logo">
-          <img src="assets/bot.svg" alt="...">
+          <img src="assets/bot.svg" alt="..." />
           <h3>ChatGPT</h3>
-
         </div>
-        
-      </div>
+
+        <nav class="sidebar-nav">
+          <div class="side-bar-menu">
+            <div class="side-bar-button">
+              <span>+</span>
+              New Chat
+            </div>
+          </div>
+
+          <div class="settings">
+            <div class="nav-title">Management</div>
+            <ul>
+              <li class="nav-item">
+                <i class="bx bxs-dashboard"></i>
+                <span>Dashboard</span>
+              </li>
+            </ul>
+          </div>
+
+        </nav>
+      </aside>
 
       <!-- Container will wrap entire application -->
-      <div id="chat_container"></div>
-      
-      <form>
-        <textarea name="prompt" cols="1" rows="1" placeholder="Ask ChatGPT..."></textarea>
-        <button type="submit"><img src="assets/send.svg"></button>
-      </form>
+      <section id="main-content">
+        <div id="chat_container"></div>
+
+        <div class="chat-input-holder">
+          <form>
+            <textarea
+              name="prompt"
+              cols="1"
+              rows="1"
+              placeholder="Ask ChatGPT..."
+            ></textarea>
+            <button type="submit"><img src="assets/send.svg" /></button>
+          </form>
+        </div>
+      </section>
     </div>
 
     <script type="module" src="script.js"></script>

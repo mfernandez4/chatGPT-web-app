@@ -19,14 +19,15 @@ body {
   background: #343541;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   text-align: center;
 }
 
 .sidebar {
-  position: fixed;
+  z-index: 1;
+  position: relative;
   top: 0;
   left: 0;
   bottom: 0;
@@ -34,9 +35,10 @@ body {
   height: 100%;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  background: #40414fa4;
-  box-shadow: 0 8px 32px rgb(2,4,24);
-  border-right: 2px solid rgba(255,255,255, .09);
+  /* background: #40414fa4; */
+  background: #202123;
+  box-shadow: 0 8px 32px rgba(2,4,24, .5);
+  border-right: 2px solid rgba(255,255,255, .05);
 }
 
 .sidebar .logo {
@@ -45,7 +47,7 @@ body {
   height: 240px;
   padding: 15px;
   display: grid;
-  background: #40414F;
+  /* background: #40414F; */
   align-items: center;
   justify-content: center;
 }
@@ -65,7 +67,125 @@ body {
   pointer-events: none;
 }
 
+.sidebar-nav {
+  flex: 1 1 0%;
+  flex-direction: column;
+  padding: 5px;
+  /* display: block; */
+  /* height: 100%; */
+  overflow-y: auto;
+}
+
+.side-bar-menu {
+  padding: 10px;
+}
+
+.side-bar-button {
+  padding: 12px;
+  border:1px solid rgb(107, 107, 107);
+  border-radius: 5px;
+  text-align: left;
+  color: #dcdcdc;
+  font-size: 18px;
+  line-height: 1.25rem;
+  transition: ease-in-out 0.5 all;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.side-bar-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.side-bar-button span {
+  padding-left: 5px;
+  padding-right: 10px;
+}
+
+.settings {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: rgb(107, 107, 107);
+  flex: 1 1 0%;
+  position: absolute;
+  /* bottom: 150px; */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color:#dcdcdc;
+  font-size: 18px;
+  font-weight: 350;
+  line-height: 1.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+  align-items: left;
+  align-content: center;
+  gap: 0.75rem;
+}
+
+.nav-title {
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: .15rem;
+}
+
+ul {
+  margin: 4px 0 0;
+  padding: 12px;
+  align-items: left;
+  list-style: none;
+  transition-duration: .2s;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  border-radius: 0.375rem;
+}
+
+ul:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#main-content {
+  display: flex;
+  flex: 1;
+  position:relative;
+  height: 100%;
+  width: 100%;
+  overflow-x: scroll;
+  align-items: center;
+  justify-items: center;
+  top: 0;bottom: 0; left: 0; right: 0;
+  
+  /* 
+  box-sizing: content-box;
+  */
+}
+
+#main-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* #main-content::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
+
 #chat_container {
+  position: absolute;
+  z-index: 0;
   flex: 1;
   width: 100%;
   height: 100%;
@@ -74,6 +194,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  padding: 15px;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -85,6 +207,12 @@ body {
 /* hides scrollbar */
 #chat_container::-webkit-scrollbar {
   display: none;
+}
+
+.chat-input-holder {
+  padding: 24px;
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
 }
 
 .wrapper {
@@ -131,6 +259,9 @@ body {
 
 .message {
   flex: 1;
+  text-align: left;
+  padding-left: 18px;
+  
 
   color: #dcdcdc;
   font-size: 20px;
@@ -159,25 +290,32 @@ form {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 12px;
   background: #40414F;
-
   display: flex;
   flex-direction: row;
   gap: 10px;
+
+  border-radius: 5px;
+  z-index: 0;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+  /* position: relative; */
 }
 
 textarea {
   width: 100%;
-
+  max-height: 200px;
   color: #fff;
   font-size: 18px;
-
-  padding: 10px;
+  padding: 12px;
   background: transparent;
   border-radius: 5px;
   border: none;
   outline: none;
+  overflow-y: hidden;
+  resize: none;
+
+  margin: 12px 0;
 }
 
 button {
@@ -188,6 +326,8 @@ button {
 }
 
 form img {
-  width: 30px;
-  height: 30px;
+  width: 1.25rem;
+  height: 1.5rem;
+  rotate: 90deg;
+  /* color: rgba(142,142,160,1); */
 }
