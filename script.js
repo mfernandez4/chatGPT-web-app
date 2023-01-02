@@ -8,15 +8,40 @@ const chatContainer = document.querySelector('#chat_container');
 const sidebar = document.querySelector('.sidebar');
 const navItems = document.querySelector('nav .nav-items');
 const toggle = document.querySelector('.sidebar .toggle');
+const toggleIcon = document.querySelector('.sidebar .toggle .bx-chevron-right');
 
 
 // add an event listener to the toggle button
 toggle.addEventListener('click', () => {
   // toggle the sidebar
   if ( sidebar.className === "sidebar" )
+  {
     sidebar.classList.add("open");
+    toggleIcon.classList.add('bx-rotate-180');
+
+    removeToggleHoverAnimation();
+  }
   else
+  {
     sidebar.classList.remove("open");
+    toggleIcon.classList.remove('bx-rotate-180');
+
+    removeToggleHoverAnimation();
+  }
+});
+
+
+// add an event listener to the toggle button when the user hovers
+toggle.addEventListener('mouseover', () => {
+  // play the animation
+  if ( toggle.classList.contains("toggle") && !sidebar.classList.contains('open'))
+  {
+    addToggleHoverAnimation();
+  }
+});
+// add an event listener to the toggle button when the user unhovers, remove the animation
+toggle.addEventListener('mouseout', () => {
+  removeToggleHoverAnimation();
 });
 
 
@@ -180,3 +205,55 @@ form.addEventListener('keyup', (e) => {
     handleSubmit(e);
   }
 });
+
+
+//* ----- Toggle button hover animations ----- *//
+let count = 0; let hoverInterval;
+/**
+ * This function is called when the user hovers over the toggle button. 
+ * It adds the hover animation to the toggle button.
+ */
+function removeToggleHoverAnimation()
+{
+  clearInterval(hoverInterval);
+  count = 0;
+  if ( toggle.className === "toggle hover" )
+  {
+    toggle.classList.remove('hover');
+    toggle.classList.add('unhover')
+  }
+}
+
+
+/**
+ * This function is called when the user stops hovering over the toggle button.
+ * It removes the hover animation from the toggle button.
+ */
+function addToggleHoverAnimation()
+{
+    // add hover animation and after .8s remove the animation
+    hoverInterval = setInterval(() => {
+      const removeCount = 8;
+      // if the count is 0, add the animation
+      if ( count === 0 )
+      {
+        toggle.classList.remove('unhover');
+        toggle.classList.add('hover');
+      }
+
+      // increment the count
+      count++;
+      
+      // if the count reaches removeCount, remove the animation
+      if ( count === removeCount )
+      {
+        toggle.classList.remove('hover');
+        toggle.classList.add('unhover');
+      }
+       // if the count reaches double the removeCount, reset the count
+      if ( count === removeCount*1.5 )
+      {
+        count = 0;
+      }
+    }, 100);
+}
