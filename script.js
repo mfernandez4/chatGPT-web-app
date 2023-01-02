@@ -11,6 +11,10 @@ const toggle = document.querySelector('.sidebar .toggle');
 const toggleIcon = document.querySelector('.sidebar .toggle .bx-chevron-right');
 
 
+
+//* ------------------------------------------ *//
+//* ------------ Event Listeners ------------- *//
+//* ------------------------------------------ *//
 // add an event listener to the toggle button
 toggle.addEventListener('click', () => {
   // toggle the sidebar
@@ -45,7 +49,9 @@ toggle.addEventListener('mouseout', () => {
 });
 
 
-
+//* ------------------------------------------ *//
+//* ------------ Main Chat Logic ------------- *//
+//* ------------------------------------------ *//
 /**
  * This function is called when the form is submitted. Displays a animated loader and sends the message to the server.
  * @param {*} element - the element to add the loader to animate the loading 
@@ -207,7 +213,9 @@ form.addEventListener('keyup', (e) => {
 });
 
 
+//* ------------------------------------------ *//
 //* ----- Toggle button hover animations ----- *//
+//* ------------------------------------------ *//
 let count = 0; let hoverInterval;
 /**
  * This function is called when the user hovers over the toggle button. 
@@ -215,13 +223,12 @@ let count = 0; let hoverInterval;
  */
 function removeToggleHoverAnimation()
 {
+  // remove the timer
   clearInterval(hoverInterval);
-  count = 0;
-  if ( toggle.className === "toggle hover" )
-  {
-    toggle.classList.remove('hover');
-    toggle.classList.add('unhover')
-  }
+  count = 0; // reset the count
+ 
+  if ( toggle.className === "toggle hover" )  // remove the hover animation
+  { toggle.classList.remove('hover'); toggle.classList.add('unhover') }
 }
 
 
@@ -233,27 +240,19 @@ function addToggleHoverAnimation()
 {
     // add hover animation and after .8s remove the animation
     hoverInterval = setInterval(() => {
-      const removeCount = 8;
-      // if the count is 0, add the animation
-      if ( count === 0 )
-      {
-        toggle.classList.remove('unhover');
-        toggle.classList.add('hover');
-      }
-
-      // increment the count
-      count++;
+      const removeCount = 8; // the number at which the animation is removed
       
+      // if the count is 0, add the animation
+      if ( count === 0 ) { toggle.classList.remove('unhover'); toggle.classList.add('hover'); }
+
+      
+      // increment the count
+      count++; // console.log(count);
+
       // if the count reaches removeCount, remove the animation
-      if ( count === removeCount )
-      {
-        toggle.classList.remove('hover');
-        toggle.classList.add('unhover');
-      }
-       // if the count reaches double the removeCount, reset the count
-      if ( count === removeCount*1.5 )
-      {
-        count = 0;
-      }
+      if ( count === removeCount ) { toggle.classList.remove('hover'); toggle.classList.add('unhover'); }
+      // if the count reaches greater than removeCount * n, reset the count
+      if ( count > removeCount*1.5 ) { count = 0; }
+
     }, 100);
 }
